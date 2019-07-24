@@ -88,7 +88,9 @@ RUN cd /opt && \
 
 FROM alpine:latest
 ENV PATH $PATH:/opt/psn00bsdk/tools/bin:/usr/local/mipsel-unknown-elf/bin
+ENV PSN00BSDK /opt/psn00bsdk/
 WORKDIR /build
-RUN apk add --no-cache make tinyxml2 musl
+RUN apk add --no-cache make tinyxml2 musl mpc1-dev mpfr-dev
 COPY --from=toolchain /usr/local/mipsel-unknown-elf /usr/local/mipsel-unknown-elf
 COPY --from=toolchain /opt/psn00bsdk /opt/psn00bsdk
+ADD sdk-common.mk /opt/psn00bsdk/sdk-common.mk
