@@ -2,6 +2,7 @@ FROM alpine:latest AS toolchain
 MAINTAINER Jakub Czekański
 # Based on https://github.com/root670/docker-psxsdk
 
+ARG PSN00BSDK_COMMIT=e82da2abe4c264d4b48a48d79cf9b8e4c4fb8ab6
 ARG THREADS=1
 ARG BINUTILS_VERSION=2.31
 ARG GCC_VERSION=7.4.0
@@ -80,6 +81,7 @@ ENV PATH $PATH:/usr/local/mipsel-unknown-elf/bin
 RUN cd /opt && \
   git clone --depth 1 https://github.com/Lameguy64/PSn00bSDK.git psn00bsdk && \
   cd psn00bsdk && \
+  git reset --hard ${PSN00BSDK_COMMIT} && \
   cd libpsn00b && \
   make -j ${THREADS} && \
   cd ../tools && \
