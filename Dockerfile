@@ -1,11 +1,11 @@
-FROM alpine:latest AS toolchain
+FROM alpine:3.12 AS toolchain
 MAINTAINER Jakub Czekański
 # Based on https://github.com/root670/docker-psxsdk
 
 ARG PSN00BSDK_COMMIT=b0659ad85b7aa6e74d2c3eac29281636a0c2bc5e
 ARG THREADS=1
-ARG BINUTILS_VERSION=2.31
-ARG GCC_VERSION=7.4.0
+ARG BINUTILS_VERSION=2.35.1
+ARG GCC_VERSION=10.2.0
 
 ENV PATH $PATH:/opt/psn00bsdk/tools/bin
 
@@ -29,7 +29,7 @@ RUN apk update && apk upgrade && apk add --no-cache \
   tinyxml2-dev
 
 # Compile binutils
-RUN wget http://ftpmirror.gnu.org/binutils/binutils-${BINUTILS_VERSION}.tar.xz && \
+RUN wget -q http://ftpmirror.gnu.org/binutils/binutils-${BINUTILS_VERSION}.tar.xz && \
   tar -xf binutils-${BINUTILS_VERSION}.tar.xz && \
   rm binutils-${BINUTILS_VERSION}.tar.xz && \
   cd binutils-${BINUTILS_VERSION} && \
@@ -42,7 +42,7 @@ RUN wget http://ftpmirror.gnu.org/binutils/binutils-${BINUTILS_VERSION}.tar.xz &
   rm -rf binutils-${BINUTILS_VERSION}
 
 # Compile GCC
-RUN wget http://ftpmirror.gnu.org/gcc/gcc-${GCC_VERSION}/gcc-${GCC_VERSION}.tar.xz && \
+RUN wget -q http://ftpmirror.gnu.org/gcc/gcc-${GCC_VERSION}/gcc-${GCC_VERSION}.tar.xz && \
   tar -xf gcc-${GCC_VERSION}.tar.xz && \
   rm gcc-${GCC_VERSION}.tar.xz && \
   cd gcc-${GCC_VERSION} && \
@@ -84,11 +84,12 @@ RUN cd /opt && \
   git reset --hard ${PSN00BSDK_COMMIT} && \
   cd libpsn00b && \
   make -j ${THREADS} && \
+  make install && \
   cd ../tools && \
   make -j ${THREADS} && \
   make install
 
-FROM alpine:latest
+FROM alpine:3.12
 ENV PATH $PATH:/opt/psn00bsdk/tools/bin:/usr/local/mipsel-unknown-elf/bin
 ENV PSN00BSDK /opt/psn00bsdk/
 WORKDIR /build
