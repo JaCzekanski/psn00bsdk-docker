@@ -2,7 +2,7 @@ FROM alpine:latest AS toolchain
 MAINTAINER Jakub Czekański
 # Based on https://github.com/root670/docker-psxsdk
 
-ARG PSN00BSDK_COMMIT=6762c39551ded059450d17d8bb0cb80642c8aaab
+ARG PSN00BSDK_COMMIT=b0659ad85b7aa6e74d2c3eac29281636a0c2bc5e
 ARG THREADS=1
 ARG BINUTILS_VERSION=2.31
 ARG GCC_VERSION=7.4.0

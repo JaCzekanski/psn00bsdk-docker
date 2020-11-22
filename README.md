@@ -3,7 +3,7 @@
 [![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/jaczekanski/psn00bsdk.svg)](https://cloud.docker.com/repository/docker/jaczekanski/psn00bsdk/builds)
 [![Docker Pulls](https://img.shields.io/docker/pulls/jaczekanski/psn00bsdk.svg)](https://cloud.docker.com/u/root670/repository/docker/jaczekanski/psn00bsdk)
 
-SDK version: [v0.15b 6762c395](https://github.com/Lameguy64/PSn00bSDK/commit/6762c39551ded059450d17d8bb0cb80642c8aaab)
+SDK version: [v0.15b b0659ad8](https://github.com/Lameguy64/PSn00bSDK/commit/b0659ad85b7aa6e74d2c3eac29281636a0c2bc5e)
 
 ## Usage
 
